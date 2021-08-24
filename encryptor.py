@@ -1,10 +1,12 @@
 from Crypto.Cipher import AES
-import scrypt, os, binascii
+import scrypt
+import os
+import binascii
 import secrets
 import pickle
     
 def encrypt_AES_GCM(_file):
-    with open('enc_data.bin','rb') as _bin:
+    with open('salt_data.bin','rb') as _bin:
         _enc_k=pickle.load(_bin)
 
     password=_enc_k['password']
