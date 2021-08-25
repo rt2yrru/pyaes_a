@@ -9,23 +9,10 @@ def encrypt_AES_GCM(_file):
     with open('salt_data.bin','rb') as _bin:
         _enc_k=pickle.load(_bin)
 
-    password=_enc_k['password']
-    kdfSalt =_enc_k['kdf_Salt']
     secretKey=_enc_k['secret_key']
     nonce=_enc_k['aes_cipher']
-    _secretKey = scrypt.hash(password, kdfSalt, N=16384, r=8, p=1, buflen=32)
     print(secretKey)
-    print(_secretKey)
-    if _secretKey==secretKey:
-        print(' Secret Key Recreated')
-    else:
-        print(' secret Key Recreational Failed')
 
-    #if aesCipher==_aesCipher:
-    #    print(' cipher RecteatrfRecreated')
-   # else:
-     #   print(' ciphEr Creation Failed')
-    
     if os.path.isdir(_file): 
         print("It is a directory")  
         print(' doing Fdr Loop')
@@ -34,7 +21,7 @@ def encrypt_AES_GCM(_file):
                 _path=os.path.join(_file, file)
                 with open(_path,'rb') as _read:
                     _data=_read.read()
-                _aesCipher = AES.new(_secretKey, AES.MODE_GCM, nonce)
+                _aesCipher = AES.new(secretKey, AES.MODE_GCM, nonce)
                 ciphertext, authTag = _aesCipher.encrypt_and_digest(_data)
                 _d_cip_auth={}
                 _d_cip_auth['cipher_text']=ciphertext
@@ -46,7 +33,7 @@ def encrypt_AES_GCM(_file):
         print("\nIt is a file") 
         with open(_file,'rb') as _read:
             _data=_read.read()
-        _aesCipher = AES.new(_secretKey, AES.MODE_GCM, nonce)
+        _aesCipher = AES.new(secretKey, AES.MODE_GCM, nonce)
         ciphertext, authTag = _aesCipher.encrypt_and_digest(_data)
         _d_cip_auth={}
         _d_cip_auth['cipher_text']=ciphertext

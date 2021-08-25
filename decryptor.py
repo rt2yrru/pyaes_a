@@ -6,35 +6,33 @@ import secrets
 import pickle
 with open('salt_data.bin','rb') as _bin:
     _data=pickle.load(_bin)
-def decrypt_AES_GCM(_file,encryptedMsg, password):
-    (kdfSalt, nonce) = encryptedMsg
+def decrypt_AES_GCM(_file):
+   # (kdfSalt, nonce) = encryptedMsg
     with open(_file,'rb') as _bin_r:
         _data_2=pickle.load(_bin_r)
     ciphertext=_data_2['cipher_text']  
     authTag=_data_2['auth_tag']
-    secretKey = scrypt.hash(password, kdfSalt, N=16384, r=8, p=1, buflen=32)
+    
+    secretKey=_data['secret_key']
+    nonce=_data['aes_cipher']
     aesCipher = AES.new(secretKey, AES.MODE_GCM, nonce)
     plaintext = aesCipher.decrypt_and_verify(ciphertext,authTag)
     with open(_file,'wb') as _bin_w:
         _bin_w.write(plaintext)
-    return plaintext
+    return ' Decrypted'
 
-#kdfSalt, ciphertext, aesCipher.nonce, authTag)
-#decryptedMsg = decrypt_AES_GCM(encryptedMsg,_data['password'])
-#print("decryptedMsg", decryptedMsg)
+
 _file='g'
-#_datum=(_data['kdf_Salt'],_data['aes_cipher'],_data['auth_Tag'])
-_datum=(_data['kdf_Salt'],_data['aes_cipher'])
 if os.path.isdir(_file): 
     print("It is a directory")  
     print(' doing Fdr Loop')
     for r, d, f in os.walk(_file):
         for file in f:
             _path=os.path.join(_file, file)
-            decryptedMsg = decrypt_AES_GCM(_path,_datum,_data['password'])
+            decryptedMsg = decrypt_AES_GCM(_path)
             print('{}  has Been Decrypted'.format(_path))
 elif os.path.isfile(_file): 
-    decryptedMsg = decrypt_AES_GCM(_file,_datum,_data['password'])
+    decryptedMsg = decrypt_AES_GCM(_file)
     print('{}  has Been Decrypted'.format(_file))
 else:
     print(' special File')
