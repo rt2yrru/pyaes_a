@@ -81,3 +81,17 @@ https://cryptobook.nakov.com/symmetric-key-ciphers/aes-encrypt-decrypt-examples
 
 
 https://github.com/siddht4/pyaes_b
+
+
+# Comparison
+
+the pickle module used here can be replaced by json in binary 
+as its a binary dictionary object/file 
+
+
+it may improve speed 
+
+tests are currently being conducted 
+
+
+
