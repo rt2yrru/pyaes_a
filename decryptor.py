@@ -22,13 +22,13 @@ def decrypt_AES_GCM(_file):
     return ' Decrypted'
 
 
-_file='g'
+_file='_g'
 if os.path.isdir(_file): 
     print("It is a directory")  
     print(' doing Fdr Loop')
     for r, d, f in os.walk(_file):
         for file in f:
-            _path=os.path.join(_file, file)
+            _path=r+'/'+file
             decryptedMsg = decrypt_AES_GCM(_path)
             print('{}  has Been Decrypted'.format(_path))
 elif os.path.isfile(_file): 

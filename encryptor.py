@@ -18,7 +18,7 @@ def encrypt_AES_GCM(_file):
         print(' doing Fdr Loop')
         for r, d, f in os.walk(_file):
             for file in f:
-                _path=os.path.join(_file, file)
+                _path=r+'/'+file
                 with open(_path,'rb') as _read:
                     _data=_read.read()
                 _aesCipher = AES.new(secretKey, AES.MODE_GCM, nonce)
@@ -44,7 +44,7 @@ def encrypt_AES_GCM(_file):
     else:  
         print("It is a special file (socket, FIFO, device file)" )
     
-_file='g'
+_file='_g'
 _enc_d=encrypt_AES_GCM(_file)
 #print('file Encrypted')
 

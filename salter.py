@@ -6,7 +6,7 @@ import secrets
 import pickle
 def salt_AES_GCM(password):
     _enc_data={}
-    salt_length=1024*1024*5
+    salt_length=1024*1024*102
     kdfSalt = secrets.token_bytes(salt_length)
 
     secretKey = scrypt.hash(password, kdfSalt, N=16384, r=8, p=1, buflen=32)
@@ -16,7 +16,8 @@ def salt_AES_GCM(password):
     with open('salt_data.bin','wb') as _bin:
         pickle.dump(_enc_data,_bin)
     print('Salting Complete')
-
-password = b's3kr3tp4ssw0rd'
+with open('_pass.txt','r') as _kuma:
+    password=_kuma.readline()
+    print(password)
 print('Salting:')
 _enc_d=salt_AES_GCM(password)
