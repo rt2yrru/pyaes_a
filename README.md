@@ -10,11 +10,12 @@ Auto generates a salt with additional data using pickle and AES GCM
 
 The salt data has secret key and cipher required to encrypt or decrypt the file/folders
 
-# Default password 
+# Password 
+Now auto generate a password of your desire strength 
 
-b's3kr3tp4ssw0rd'
+you can save for your own purpose but once salt is generated password is not required anymore
 
-This is the default password which will be used to generate the secret key and cipher 
+
 
 # Salt file
 
