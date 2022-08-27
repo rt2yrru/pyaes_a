@@ -1,15 +1,9 @@
-import random
-def _rand_pass(length=100):
-    _pwd=''
-    for _ in range(0,length):
-
-        random.seed()
-        random.getstate()
-        _c=chr(random.randrange(33,126))
-        _pwd+=_c
-    return _pwd
-_ab=_rand_pass()
-print(_ab)
-with open('_pass.txt','w') as _fw:
-    _fw.write(_ab)
+import secrets
+print(secrets.SystemRandom())
+_b=secrets.token_bytes(256*4)
+print(_b)
+print(type(_b))
+print(len(_b))
+with open('_pass.bin','wb') as _w_b:
+    _w_b.write(_b)
     
