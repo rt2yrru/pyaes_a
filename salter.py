@@ -16,8 +16,8 @@ def salt_AES_GCM(password):
     with open('salt_data.bin','wb') as _bin:
         pickle.dump(_enc_data,_bin)
     print('Salting Complete')
-with open('_pass.txt','r') as _kuma:
-    password=_kuma.readline()
+with open('_pass.bin','rb') as _kuma:
+    password=_kuma.read()
     print(password)
 print('Salting:')
 _enc_d=salt_AES_GCM(password)
